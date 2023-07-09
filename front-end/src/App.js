@@ -49,6 +49,7 @@ function App() {
    <div className="App">
      <Header />
      <GoalList goalList={goalList} handleToggle = {handleToggle} handleFilter={handleFilter}/>
+     <InputForm goalList={goalList} setGoalList={setGoalList}/>
      <PushChanges sendGoalList= {sendGoalList}/>
    </div>
  );

@@ -4,7 +4,7 @@ import React from 'react';
 const PushChanges = ({sendGoalList}) => {
    return (
        <div>
-           <button style={{margin: '20px'}} onClick={sendGoalList}>Push Changes</button>
+           <button style={{margin: '20px'}} onClick={sendGoalList}>Save Changes</button>
        </div>
    );
 };

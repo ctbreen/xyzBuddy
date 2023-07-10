@@ -47,10 +47,19 @@ function App() {
  
  return (
    <div className="App">
-     <Header />
-     <GoalList goalList={goalList} handleToggle = {handleToggle} handleFilter={handleFilter}/>
-     <InputForm goalList={goalList} setGoalList={setGoalList}/>
-     <PushChanges sendGoalList= {sendGoalList}/>
+     
+      <Header/>
+    <div className='ListMods'>
+      <div className="GoalList">
+        <GoalList goalList={goalList} handleToggle = {handleToggle} handleFilter={handleFilter}/>
+      </div>
+      <div className='InputForm'>
+        <InputForm goalList={goalList} setGoalList={setGoalList}/>
+      </div>
+    </div>
+     <div className='PushChanges'>
+      <PushChanges sendGoalList= {sendGoalList}/>
+     </div>
    </div>
  );
 }

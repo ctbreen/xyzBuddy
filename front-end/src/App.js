@@ -50,21 +50,23 @@ function App() {
  
  return (
    <div className="App">
-      <Header/>
-      <Profile/>
-      <LoginButton/>
-      <LogoutButton/>
-    <div className='ListMods'>
-      <div className="GoalList">
-        <GoalList goalList={goalList} handleToggle = {handleToggle} handleFilter={handleFilter}/>
+      <div class="box-top">
+        <div class="box-top-left"><Profile/></div>
+        <div class="box-top-center"><Header/></div>
+        <div class="box-top-right"><LoginButton/>
+        <LogoutButton/></div>
       </div>
-      <div className='InputForm'>
-        <InputForm goalList={goalList} setGoalList={setGoalList}/>
+      <div className='ListMods'>
+        <div className="GoalList">
+          <GoalList goalList={goalList} handleToggle = {handleToggle} handleFilter={handleFilter}/>
+        </div>
+        <div className='InputForm'>
+          <InputForm goalList={goalList} setGoalList={setGoalList}/>
+        </div>
       </div>
-    </div>
-     <div className='PushChanges'>
-      <PushChanges sendGoalList= {sendGoalList}/>
-     </div>
+      <div className='PushChanges'>
+        <PushChanges sendGoalList= {sendGoalList}/>
+      </div>
    </div>
  );
 }

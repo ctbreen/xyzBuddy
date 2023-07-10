@@ -25,5 +25,23 @@
 .PushChanges {
   margin-top: 20px;
 }
+.box-top {
+  display: table;
+  width: 100%;
+}
+.box-top-left{
+  display: table-cell;
+  width: 33%;
+  text-align: left;
+  background-color: #995D50;
+}
+.box-top-center,
+.box-top-right {
+  display: table-cell;
+  width: 33%;
+  text-align: center;
+  background-color: #995D50;
+}
+
 
 

@@ -5,6 +5,9 @@ import Header from "./Header";
 import GoalList from "./GoalList";
 import PushChanges from "./PushChanges"
 import InputForm from "./InputForm"
+import LoginButton from "./LoginButton"
+import LogoutButton from "./LogoutButton"
+import Profile from './Profile';
  
 import './App.css';
  
@@ -47,8 +50,10 @@ function App() {
  
  return (
    <div className="App">
-     
       <Header/>
+      <Profile/>
+      <LoginButton/>
+      <LogoutButton/>
     <div className='ListMods'>
       <div className="GoalList">
         <GoalList goalList={goalList} handleToggle = {handleToggle} handleFilter={handleFilter}/>

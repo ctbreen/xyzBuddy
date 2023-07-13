@@ -6,9 +6,13 @@ app = Flask(__name__)
 #list API route
 @app.route("/list")
 def list():
+    userId = request.args.get('userId')
     f = open('data.json')
     data = json.load(f)
-    return jsonify(data)
+    if userId == "None":
+        return jsonify([])
+    else:
+        return jsonify(data)
 
 @app.route('/send/json', methods=['POST'])
 def receive_json():

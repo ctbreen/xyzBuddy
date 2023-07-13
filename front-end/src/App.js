@@ -8,18 +8,21 @@ import InputForm from "./InputForm"
 import LoginButton from "./LoginButton"
 import LogoutButton from "./LogoutButton"
 import Profile from './Profile';
+import { useAuth0 } from "@auth0/auth0-react";
  
 import './App.css';
  
 function App() {
   const [ goalList, setGoalList ] = useState([{}]);
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
-    fetch('/list')
-      .then(response => response.json())
-      .then(goalList => setGoalList(goalList))
-      .catch(error => console.log(error));
-  }, []);
+      let userId = isAuthenticated ? user.sub : "None";
+      fetch(`/list?userId=${userId}`)
+        .then(response => response.json())
+        .then(goalList => setGoalList(goalList))
+        .catch(error => console.log(error));
+  }, [user]);
 
   const handleToggle = (id) => {
     let mapped = goalList.map(task => {

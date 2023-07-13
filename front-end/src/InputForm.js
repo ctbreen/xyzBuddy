@@ -19,7 +19,7 @@ const InputForm = ({goalList, setGoalList}) => {
                 completed = true;
             } else{
                 completed = false;
-            }
+            };
             
             let thisId = goalList[goalList.length - 1]["id"] + 1;
             let newItem = [{"complete": completed, "id":thisId, "task": task1}];

@@ -7,12 +7,13 @@ const Profile = () => {
   if (isLoading) {
     return <div>Loading ...</div>;
   }
-
+  //<h2>{user.name}</h2>
   return (
     isAuthenticated && (
       <div>
+        <p>User Information</p>
         <img src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
+        <p>{user.sub}</p>
         <p>{user.email}</p>
       </div>
     )

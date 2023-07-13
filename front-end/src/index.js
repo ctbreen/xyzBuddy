@@ -4,13 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
-//basically redirect_uri should be http://localhost:3000/
+//basically redirect_uri should be 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Auth0Provider
     domain="dev-px1zfc63stpzi3jb.us.auth0.com"
     clientId="bkr723gfA99aJeWcyu4dOe5uuBGMwBI9"
+    cacheLocation="localstorage"
     authorizationParams={{
       redirect_uri: window.location.origin
     }}

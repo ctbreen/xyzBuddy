@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 //import data from "./data.json";
 //components
 import Header from "./Header";
@@ -11,18 +11,38 @@ import Profile from './Profile';
 import { useAuth0 } from "@auth0/auth0-react";
  
 import './App.css';
+
+function useDebounce(value, customDelay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, customDelay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, customDelay]);
+
+  return debouncedValue;
+}
+
  
 function App() {
   const [ goalList, setGoalList ] = useState([{}]);
   const { user, isAuthenticated } = useAuth0();
 
+  const debouncedIsAuthenticated = useDebounce(isAuthenticated, 20);
+
   useEffect(() => {
       let userId = isAuthenticated ? user.sub : "None";
+      console.log(isAuthenticated)
+      console.log(userId)
       fetch(`/list?userId=${userId}`)
         .then(response => response.json())
         .then(goalList => setGoalList(goalList))
         .catch(error => console.log(error));
-  }, [user]);
+  }, [debouncedIsAuthenticated]);
 
   const handleToggle = (id) => {
     let mapped = goalList.map(task => {

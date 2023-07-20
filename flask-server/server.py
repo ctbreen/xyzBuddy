@@ -1,18 +1,37 @@
 from flask import Flask, jsonify, request
 import json
+import psycopg2
 
 app = Flask(__name__)
 
+def connection():
+    conn = psycopg2.connect(
+        dbname='xyzbuddy',
+        user='dummyuser',
+        password='dummypassword',
+        host='localhost',
+        port='5432'
+    )
+    return conn
+
 #list API route
-@app.route("/list")
-def list():
+@app.route("/list", methods=['GET'])
+def list(): 
     userId = request.args.get('userId')
-    f = open('data.json')
-    data = json.load(f)
-    if userId == "None":
-        return jsonify([])
-    else:
-        return jsonify(data)
+
+    conn = connection()
+    
+    theData = []
+    with conn.cursor() as cursor:
+        query = "SELECT * FROM user_goals WHERE user_id = %s"
+        cursor.execute(query, (userId,))
+        rows = cursor.fetchall()
+        for i in range(len(rows)):
+            theData.append({'complete': rows[i][2], 'id': rows[i][1],  'task': rows[i][3]})
+    conn.commit()
+    conn.close()
+    print(userId)
+    return jsonify(theData)
 
 @app.route('/send/json', methods=['POST'])
 def receive_json():

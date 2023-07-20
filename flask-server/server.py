@@ -30,18 +30,29 @@ def list():
             theData.append({'complete': rows[i][2], 'id': rows[i][1],  'task': rows[i][3]})
     conn.commit()
     conn.close()
-    print(userId)
     return jsonify(theData)
 
 @app.route('/send/json', methods=['POST'])
 def receive_json():
     data = request.get_json()
-    f = open('data.json', 'w')
-    #old_data = json.load(f)
-    #update ids so that they begin at 1 again
+    userId = request.args.get('userId')
     for i in range(1, len(data)+1):
         data[i-1]['id'] = i
-    json.dump(data, f)
+
+    conn = connection()
+    with conn.cursor() as cursor:
+        query = "DELETE FROM user_goals WHERE user_id = %s"
+        cursor.execute(query, (userId,))
+        for i in range(len(data)):
+            query = "INSERT INTO user_goals (user_id, custom_id, completed, task) Values (%s, %s, %s, %s)"
+            user_id = userId
+            custom_id = data[i]['id']
+            completed = data[i]['complete']
+            task = data[i]['task']
+            cursor.execute(query, (user_id, custom_id, completed, task))
+
+    conn.commit()
+    conn.close()
     return ""
 
 if __name__ == " __main__":

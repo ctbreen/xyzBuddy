@@ -14,7 +14,6 @@ import './App.css';
 
 function useDebounce(value, customDelay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
-
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedValue(value);
@@ -32,7 +31,7 @@ function App() {
   const [ goalList, setGoalList ] = useState([{}]);
   const { user, isAuthenticated } = useAuth0();
 
-  const debouncedIsAuthenticated = useDebounce(isAuthenticated, 20);
+  const debouncedIsAuthenticated = useDebounce(isAuthenticated, 30);
 
   useEffect(() => {
       let userId = isAuthenticated ? user.sub : "None";
@@ -58,8 +57,9 @@ function App() {
   }
 
   const sendGoalList = () => {
+    let userId = isAuthenticated ? user.sub : "None";
     const jsonData = JSON.stringify(goalList);
-    fetch('/send/json', {
+    fetch(`/send/json?userId=${userId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
